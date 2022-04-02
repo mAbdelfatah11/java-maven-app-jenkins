@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import com.cloudbees.hudson.plugins.modeling.*
+
 @Library('Jenkins-Shared-Library')
 def gv
 
@@ -8,52 +10,47 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    
     stages {
-      
-        stage("init") {
-          
+    
+        stage('init') {
             steps {
                 script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-      
-        stage("versionIncrement") {
-          
-            steps {
-                script {
-                    versionIncrement()
+                	gv = load "script.groovy"
                 }
             }
         }
         
-        stage("build jar") {
-          
+        stage('increment version') {
             steps {
                 script {
-                    buildJar()
+                	gv.versionIncrement()
                 }
             }
         }
-     
-        stage("build image") {
-             
+        stage('build app') {
             steps {
                 script {
-                    buildImage()
+			gv.buildJar()
                 }
             }
         }
+        stage('build image') {
+            steps {
+                script {
+			gv.buildImage()
+                }
+            }
+        }
+        
+        stage('deploy') {
+            steps {
+                script {
+                    echo 'deploying docker image to EC2...'
+                }
+            }
 
-        stage("deploy") {
-             
-            }
-            steps {
-                script {
-                    gv.deployApp()
-                }
-            }
+
         }
     }
 }
