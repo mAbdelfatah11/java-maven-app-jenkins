@@ -7,34 +7,47 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    
     stages {
-        stage("init") {
+    
+        stage('init') {
             steps {
                 script {
-                    gv = load "script.groovy"
+                	gv = load "script.groovy"
                 }
             }
         }
-        stage("build jar") {
+        
+        stage('increment version') {
             steps {
                 script {
-                    gv.buildJar()
+                	gv.versionIncrement()
                 }
             }
         }
-        stage("build image") {
+        stage('build app') {
             steps {
                 script {
-                    gv.buildImage()
+			gv.buildJar()
                 }
             }
         }
-        stage("deploy") {
+        stage('build image') {
             steps {
                 script {
-                    gv.deployApp()
+			gv.buildImage()
                 }
             }
+        }
+        
+        stage('deploy') {
+            steps {
+                script {
+                    echo 'deploying docker image to EC2...'
+                }
+            }
+
+
         }
     }
 }
