@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-import com.cloudbees.hudson.plugins.modeling.*
+//import com.cloudbees.hudson.plugins.modeling.*
 
 @Library('Jenkins-Shared-Library')
 def gv
@@ -24,21 +24,21 @@ pipeline {
         stage('increment version') {
             steps {
                 script {
-                	gv.versionIncrement()
+                	versionIncrement()
                 }
             }
         }
         stage('build app') {
             steps {
                 script {
-			gv.buildJar()
+			buildJar()
                 }
             }
         }
         stage('build image') {
             steps {
                 script {
-			gv.buildImage()
+			buildImage()
                 }
             }
         }
