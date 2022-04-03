@@ -1,8 +1,5 @@
 #!/usr/bin/env groovy
 
-//import com.cloudbees.hudson.plugins.modeling.*
-
-@Library('Jenkins-Shared-Library')
 def gv
 
 pipeline {
@@ -12,7 +9,7 @@ pipeline {
     }
     
     stages {
-    
+    	//load job functions script
         stage('init') {
             steps {
                 script {
@@ -20,7 +17,7 @@ pipeline {
                 }
             }
         }
-        
+        //auto increment built artifact version 
         stage('increment version') {
             steps {
                 script {
@@ -28,6 +25,7 @@ pipeline {
                 }
             }
         }
+        //build the Artifact
         stage('build app') {
             steps {
                 script {
@@ -35,24 +33,31 @@ pipeline {
                 }
             }
         }
+        //build Docker image - DockerHublogin - Push image to DockerHUb
         stage('build image') {
             steps {
                 script {
 			buildImage()
-			dockerLogin()
-			dockerPush()
                 }
             }
         }
-        
+        //simulate deploy
         stage('deploy') {
             steps {
                 script {
                     echo 'deploying docker image to EC2...'
                 }
             }
-
+            }
+	//update your git repo with the new change
+	stage('commit version update') {
+            steps {
+                script {
+			versionCommit()
+                    }
+                }
+            }
+        }
 
         }
-    }
-}
+
