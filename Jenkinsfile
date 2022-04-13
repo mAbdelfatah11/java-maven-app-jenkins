@@ -47,7 +47,7 @@ pipeline {
 	stage('commit version update') {
             steps {
                 script {
-			versionCommit()
+			echo 'new change to commit...'
                     }
                 }
             }
