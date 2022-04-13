@@ -14,7 +14,7 @@ pipeline {
         stage('increment version') {
             steps {
                 script {
-                	MVN-versionIncrement.groovy()
+                	mvnVersionIncrement.groovy()
                 }
             }
         }
