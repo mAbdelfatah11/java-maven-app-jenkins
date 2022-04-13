@@ -47,12 +47,10 @@ pipeline {
 	stage('commit version update') {
             steps {
                 script {
-			echo 'new change to commit...'
+			echo 'new changes to commit...'
                     }
                 }
             }
         }
         }
-
-
 
