@@ -10,7 +10,7 @@ pipeline {
     }
     
     stages {
-        //auto increment built artifact version 
+/*        //auto increment built artifact version 
         stage('increment version') {
             steps {
                 script {
@@ -33,7 +33,7 @@ pipeline {
 			buildImage()
                 }
             }
-        }
+        }	*/
         //simulate deploy
         stage('deploy') {
             steps {
@@ -43,14 +43,14 @@ pipeline {
                 }
             }
             }
-	//update your git repo with the new change
+/*	//update your git repo with the new change
 	stage('commit version update') {
             steps {
                 script {
 			echo 'new changes to commit...'
                     }
                 }
-            }
+            }*/
         }
         }
 
