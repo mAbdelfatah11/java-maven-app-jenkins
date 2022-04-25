@@ -2,7 +2,7 @@ version: '3.8'
 services:
     java-maven-app:
 
-      image: mabdelfatah/mma-demo:1.1.8-1
+      image: mabdelfatah/mma-demo:${IMAGE}
       ports:
         - 8080:8080
     postgres:
